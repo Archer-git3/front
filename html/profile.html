@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	    <title>Грузиньська кухня</title>
+		<link href="{{ url_for('static', filename='css/style_for_profile.css') }}" rel="stylesheet" type="text/css"/>
+	</head>
+    <body bgcolor="#1b4335">
+		<div id="main">
+			<h1 id="center">Грузиньська кухня    </h1>
+			<div id="word">
+				<a href="{{ url_for('site') }}" class="button">Головна</a>
+				<a href="{{ url_for('history') }}" class="button">Історія</a>
+				<a href="{{ url_for('menu') }}" class="button">Страви</a>
+				<a href="{{ url_for('deserts') }}" class="button">Десерти та напої</a>
+			</div>
+		</div>
+	        <div id="contact">
+    	<h2>Контактна інформіція</h2>
+    	<p>Телефон: +380(095)-092-18-65</p>
+    	<p>Email: sasha281012@gmail.com</p>
+		</div>
+		<img src="{{ url_for('static', filename='main_pic/prof.png') }}"  alt="your-image" class="bg-image">
+			<div id="names" >
+				<H1 id="helow">Раді бачити {{ name }}!</H1>
+				<a id="vuhid"  href="/logout" class="button"> Вийти з облікового запису</a>
+			</div>
+
+		<div class="container-widget-4572">
+
+			<div class="widget-7348" id="weather-widget-8392"></div>
+		</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.13.1/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.13.1/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+
+			    <div style="transform:translate(550px,-165px); position: absolute; margin-top: 10px;" >
+				<H2 style="transform:translate(0px,0px); color:#ff8562;" >Ось усі ваші вподобанні страви  !</H2>
+<div style="display: flex; flex-wrap: wrap;    width: 600px;
+    height: 100px;">
+    {% for value, view in combined_list %}
+        <a href="{{ url_for(value) }}">
+            <button style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; margin: 5px;">
+                {{ view  }}
+            </button>
+        </a>
+    {% endfor %}
+</div>
+
+
+
+
+    	</div>
+		<div style="transform:translate(20px,0px); position: absolute; margin-top: 10px;" >
+			<H2 style="transform:translate(0px,-160px); color:#ff8562;" >Ось усі ваші коментарі !</H2>
+        		{% for comment in comments %}
+            	<div class="comment">
+                	<strong>{{ comment.name }}</strong>: {{ comment.comment }}
+            	</div>
+        		{% endfor %}
+    	</div>
+
+  <script type="text/babel">
+    // Компонент погодного віджета
+      class WeatherWidget extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            city: 'London',
+            weatherData: null,
+            loading: false,
+            error: null
+          };
+        }
+
+        componentDidMount() {
+          this.fetchWeatherData();
+        }
+
+        fetchWeatherData() {
+          const { city } = this.state;
+
+          this.setState({ loading: true });
+
+          fetch(`/weather?city=${city}`)
+            .then(response => response.json())
+            .then(data => {
+              this.setState({
+                weatherData: data,
+                loading: false
+              });
+            })
+            .catch(error => {
+              this.setState({
+                error: 'Помилка при отриманні даних про погоду',
+                loading: false
+              });
+            });
+        }
+
+        handleCityChange = event => {
+          this.setState({ city: event.target.value });
+        };
+
+        handleCitySubmit = event => {
+          event.preventDefault();
+          this.fetchWeatherData();
+        };
+
+        render() {
+          const { city, weatherData, loading, error } = this.state;
+
+          if (loading) {
+            return <div>Завантаження...</div>;
+          }
+
+          if (error) {
+            return <div>{error}</div>;
+          }
+
+          if (!weatherData) {
+            return null;
+          }
+
+          return (
+            <div>
+              <h2>За допомгою цього віджету ви можете дізнатися про погоду та температу у вибраному вами городу:{city}</h2>
+
+              <form onSubmit={this.handleCitySubmit}>
+                <label htmlFor="city-input-0987">Місто:</label>
+                <input
+                  id="city-input-0987"
+                  type="text"
+                  value={city}
+                  onChange={this.handleCityChange}
+                />
+                <button type="submit">Змінити місто</button>
+              </form>
+
+              <ul>
+                {weatherData.map(day => (
+                  <li key={day.date}>
+                    <strong>{day.date}</strong>: {day.temperature}°C, {day.description}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        }
+      }
+
+      ReactDOM.render(<WeatherWidget />, document.getElementById('weather-widget-8392'));
+    </script>
+
+</body>
+</html>

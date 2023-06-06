@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	    <title>Грузиньська кухня</title>
+		<link href="{{ url_for('static', filename='css/style_for_menu.css') }}" rel="stylesheet" type="text/css"/>
+	</head>
+    <body bgcolor="#1b4940" >
+		<div id="main">
+	    	<h1 class="center">Грузиньська кухня    </h1>
+			<div id="word">
+				<a href="{{ url_for('site') }}" class="button">Головна</a>
+				<a href="{{ url_for('history') }}" class="button">Історія</a>
+				<a href="{{ url_for('menu') }}" class="button">Страви</a>
+				<a href="{{ url_for('deserts') }}" class="button">Десерти та напої</a>
+			</div>
+		</div>
+
+<div id="chose1">
+    <button onclick="showElement(0)" class="chose1">Всі</button>
+    <button onclick="showElement(1)" class="chose1">Холодні десерти</button>
+    <button onclick="showElement(2)" class="chose1">Гарячі десерти</button>
+    <button onclick="showElement(3)" class="chose1">Напої</button>
+
+    <div id="element1" class="element">
+        <div class="container">
+            <a href="{{ url_for( 'matsoni') }}">
+                <div class="tile" onclick="openModal('adsarski-modal')">
+                    <img src="{{ url_for('static', filename='pic_menu/matsoni.jpg') }}">
+                    <p>Матсоні</p>
+                </div>
+            </a>
+
+            <a href="{{ url_for('pear_in_vine')}}">
+                <div class="tile" onclick="openModal('imperetunsky-modal')">
+                    <img src="{{ url_for('static', filename='pic_menu/pear_in_vine.jpg')}}">
+                    <p>Груші в червоному вині</p>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    <div id="element2" class="element">
+        <div class="container">
+            <a href="{{ url_for( 'tukva') }}">
+                <div class="tile" onclick="openModal('adsarski-modal')">
+                    <img src="{{ url_for('static', filename='pic_menu/tukva.jpg') }}">
+                    <p>Грузинський десерт з тиквою</p>
+                </div>
+            </a>
+
+            <a href="{{ url_for( 'chashushuli') }}">
+                <div class="tile" onclick="openModal('history-modal')">
+                    <img src="{{ url_for('static', filename='pic_menu/chashushuli.jpg')}}">
+                    <p>Чашушули</p>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+    <div id="element3" class="element">
+        <div class="container">
+            <a href="{{ url_for('chacha') }}">
+                <div class="tile" onclick="openModal('adsarski-modal')">
+                    <img src="{{ url_for('static', filename='pic_menu/chacha.jpg') }}">
+                    <p>Чача</p>
+                </div>
+            </a>
+
+            <a href="{{ url_for('tarhun') }}">
+                <div class="tile" onclick="openModal('adsarski-modal')">
+                    <img src="{{ url_for('static', filename='pic_menu/tarxun.jpg') }}">
+                    <p>Тархун</p>
+                </div>
+            </a>
+
+
+        </div>
+    </div>
+
+</div>
+
+<div style="  transform: translate(0px, 200px);">
+  <h1>Коментарі</h1>
+
+  <!-- Форма для вводу коментарів -->
+  <form style="display:block" id="add" action="/submit_comment_for_deserts" method="post">
+    <textarea name="comment" placeholder="Напишіть коментар"></textarea>
+    <br>
+    <input type="submit" value="Відправити">
+  </form>
+
+  <hr>
+               		{% for comment in comments %}
+            	<div class="comment">
+                	<strong>{{ comment.name }}</strong>: {{ comment.comment }}
+            	</div>
+        		{% endfor %}
+    </div>
+		<div id="contact">
+    		<h2>Контактна інформіція</h2>
+    		<p>Телефон: +380(095)-092-18-65</p>
+    		<p>Email: sasha281012@gmail.com</p>
+		</div>
+
+    	    <div class="top-right">
+                {% if logged_in %}
+                <a href="{{ url_for('prof') }}" id="perehid">перейти в свій профіль</a>
+                {% else %}
+                <button id="open-modal-btn">Увійти або зареєструватись</button>
+                <div id="modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <div class="form-selector">
+                            <button id="register-btn">Реєстрація</button>
+                            <button id="login-btn">Вхід</button>
+                        </div>
+                        <form id="register-form" style="display:block;" method="POST" action="{{ url_for('register') }}">
+                            <h2>Реєстрація</h2>
+                            <label for="name">Ім'я:</label>
+                            <input type="text" id="name" name="name" required>
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                            <label for="password">Пароль:</label>
+                            <input type="password" id="password" name="password" required>
+                            <br>
+                            <button type="submit">Зареєструватись</button>
+                        </form>
+                        <form id="login-form" style="display:none;" method="POST" action="{{ url_for('login') }}">
+                            <h2>Вхід</h2>
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                            <label for="password">Пароль:</label>
+                            <input type="password" id="password" name="password" required>
+                            <br>
+                            <button type="submit">Увійти</button>
+                        </form>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+
+		<script type="text/javascript">
+    function showElement(index) {
+        if (index === 0) {
+            // Показати всі елементи
+            document.querySelectorAll('[id^="element"]').forEach(function (el) {
+                el.style.display = 'block';
+            });
+        } else {
+            // Сховати всі елементи
+            document.querySelectorAll('[id^="element"]').forEach(function (el) {
+                el.style.display = 'none';
+            });
+
+            // Показати потрібний елемент
+            var element = document.getElementById('element' + index);
+            if (element) {
+                element.style.display = 'block';
+            }
+        }
+    }
+
+    const openModalBtn = document.getElementById('open-modal-btn');
+const modal = document.getElementById('modal');
+const closeModal = document.getElementsByClassName('close')[0];
+const registerBtn = document.getElementById('register-btn');
+const loginBtn = document.getElementById('login-btn');
+const registerForm = document.getElementById('register-form');
+const loginForm = document.getElementById('login-form');
+
+// Відкрити модальне вікно
+openModalBtn.onclick = function() {
+  modal.style.display = 'block';
+  registerForm.style.display = 'none';
+  loginForm.style.display = 'none';
+}
+
+// Закрити модальне вікно при натисканні на "х"
+closeModal.onclick = function() {
+  modal.style.display = 'none';
+}
+
+// Закрити модальне вікно при натисканні за межами модального вікна
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+}
+
+// Показати форму реєстрації при натисканні на кнопку "Реєстрація"
+registerBtn.onclick = function() {
+  registerForm.style.display = 'block';
+  loginForm.style.display = 'none';
+}
+
+// Показати форму входу при натисканні на кнопку "Вхід"
+loginBtn.onclick = function() {
+  loginForm.style.display = 'block';
+  registerForm.style.display = 'none';
+}
+
+</script>
+
+		<img src="{{ url_for('static', filename='main_pic/deserts.png')}}" class="bg-image">
+	</body>
+</html>

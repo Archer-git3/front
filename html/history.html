@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	    <title>Історія грузиньської кухня</title>
+<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+		<div id="main">
+			<h1 id="center">Грузиньська кухня    </h1>
+			<div id="word">
+				<a href="{{ url_for('site') }}" class="button">Головна</a>
+				<a href="{{ url_for('history') }}" class="button">Історія</a>
+				<a href="{{ url_for('menu') }}" class="button">Страви</a>
+				<a href="{{ url_for('deserts') }}" class="button">Десерти та напої</a>
+			</div>
+		</div>
+	        <div id="contact">
+    <h2>Контактна інформіція</h2>
+    <p>Телефон: +380(095)-092-18-65</p>
+    <p>Email: sasha281012@gmail.com</p>
+</div>
+	<div class="centers">
+			<h3 style="text-align: center;">
+			Грузинська кухня має довгу і багату історію, яка пов'язана з культурою та традиціями грузинського народу. Грузинська кухня має впливи з кількох кухонь, включаючи турецьку, перську, арабську, російську та кавказьку.<br> &bull;<br>
+
+Одним з ключових елементів грузинської кухні є хінкалі - грузинські пельмені. Вони були створені в давні часи для того, щоби переносити їжу на відстань із одного місця в інше. Хінкалі можна зустріти по всій Грузії та вони є однією з найпопулярніших страв.<br> &bull;<br>
+
+Ще однією з популярних страв є хачапурі - традиційні грузинські пироги. Хачапурі можна знайти у різних варіаціях, наприклад, з сиром, з зеленню, з м'ясом та з картошкою. Ця страва також має впливи зі східної та центральної Азії.<br> &bull;<br>
+
+Іншою популярною стравою є мцвадзі - грузинський сир з кислого молока, який зазвичай подається з відвареними овочами та зеленню.<br> &bull;<br>
+
+Також грузинська кухня відома своїми смачними соусами. Наприклад, сацебелі - гостра грузинська соус, який часто подається з м'ясними стравами. Інші популярні соуси включають ткемалі - соус зі слив, надзаварні - гострий соус з часнику та хмелю-сунелі - соус з коріандром та гострим перцем.<br> &bull;<br>
+
+Узагалі грузинська кухня є дуже різноманітною та включає в себе багато страв з м'яса, риби, овочів та фруктів. Вона вважається однією знайсмачніших та найцікавіших кухонь у світі. Грузинські страви відрізняються своєю унікальністю та смаком, що залежить від використовуваних інгредієнтів та спецій.<br> &bull;<br>
+
+Крім того, грузинська кухня має глибокі коріння у культурі та традиціях грузинського народу. Багато страв мають символічне значення та пов'язані з релігійними та національними святами. Наприклад, страва чахохбілі вважається символом дружби та гостинності, а суп лобіо - символом здоров'я та благополуччя.<br> &bull;<br>
+
+Грузинська кухня також відрізняється своїми традиційними способами приготування. Наприклад, барбекю на відкритому повітрі, яке називається мцвадзгвері, є одним з популярних способів приготування м'яса в Грузії. Також традиційною є приготування страв у казані на відкритому вогні.<br>
+		</h3>
+    </div>
+
+    <div class="top-right">
+
+        {% if logged_in %}
+            <a href="{{ url_for('prof') }}" id="button">перейти в свій профіль</a>
+        {% else %}
+            <button id="open-modal-btn">Увійти або зареєструватись</button>
+
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div class="form-selector">
+                        <button id="register-btn">Реєстрація</button>
+                        <button id="login-btn">Вхід</button>
+                    </div>
+                    <form id="register-form" style="display:block;" method="POST" action="{{ url_for('register') }}">
+                        <h2>Реєстрація</h2>
+                        <label for="name">Ім'я:</label>
+                        <input type="text" id="name" name="name" required>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                        <label for="password">Пароль:</label>
+                        <input type="password" id="password" name="password" required>
+                        <br>
+                        <button type="submit">Зареєструватись</button>
+                    </form>
+                    <form id="login-form" style="display:none;" method="POST" action="{{ url_for('login') }}">
+                        <h2>Вхід</h2>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                        <label for="password">Пароль:</label>
+                        <input type="password" id="password" name="password" required>
+                        <br>
+                        <button type="submit">Увійти</button>
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+	<script type="text/javascript">
+const openModalBtn = document.getElementById('open-modal-btn');
+const modal = document.getElementById('modal');
+const closeModal = document.getElementsByClassName('close')[0];
+const registerBtn = document.getElementById('register-btn');
+const loginBtn = document.getElementById('login-btn');
+const registerForm = document.getElementById('register-form');
+const loginForm = document.getElementById('login-form');
+
+// Відкрити модальне вікно
+openModalBtn.onclick = function() {
+  modal.style.display = 'block';
+  registerForm.style.display = 'none';
+  loginForm.style.display = 'none';
+}
+
+// Закрити модальне вікно при натисканні на "х"
+closeModal.onclick = function() {
+  modal.style.display = 'none';
+}
+
+// Закрити модальне вікно при натисканні за межами модального вікна
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+}
+
+// Показати форму реєстрації при натисканні на кнопку "Реєстрація"
+registerBtn.onclick = function() {
+  registerForm.style.display = 'block';
+  loginForm.style.display = 'none';
+}
+
+// Показати форму входу при натисканні на кнопку "Вхід"
+loginBtn.onclick = function() {
+  loginForm.style.display = 'block';
+  registerForm.style.display = 'none';
+}
+	</script>
+    </body>
+</html>

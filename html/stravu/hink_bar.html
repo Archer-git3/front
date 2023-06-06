@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Грузинська кухня</title>
+    <link href="{{ url_for('static', filename='css/style_for_stravu.css') }}" rel="stylesheet" type="text/css"/>
+</head>
+<body bgcolor="#1b4940">
+<div id="main">
+    <h1 class="center">Грузиньська кухня</h1>
+    <div id="word">
+        <a href="{{ url_for('site') }}" class="button">Головна</a>
+        <a href="{{ url_for('history') }}" class="button">Історія</a>
+        <a href="{{ url_for('menu') }}" class="button">Страви</a>
+        <a href="{{ url_for('deserts') }}" class="button">Десерти та напої</a>
+    </div>
+</div>
+
+<img src="{{ url_for('static', filename='main_pic/prof.png') }}" alt="your-image" class="bg-image">
+<div id="names">
+    <h1 id="helow">Хінкалії з бараниноюі!</h1>
+</div>
+
+{% if logged_in %}
+    <button id="favoriteBtn" onclick="addToFavorites()">Додати до улюблених</button>
+{% else %}
+    <h2 id="like">Ви не аутентифіковані. Будь ласка, увійдіть в систему.</h2>
+{% endif %}
+
+<div class="image-container">
+    <img src="{{ url_for('static', filename='pic_menu/sir.png') }}" alt="Картинка">
+</div>
+
+<div class="text">
+    <h3 id="text">Хінкалі з бараниною - це традиційна грузинська страва, яка відома своєю смачною начинкою та особливим способом подачі. Хінкалі - це невеликі грузинські класичні пельмені, які заповнюються ароматною начинкою зі шматочками баранини та спеціями.
+<br><br>
+Для приготування хінкалі з бараниною, спочатку готують тісто. Тісто для хінкалі має бути тонким і еластичним. Воно зазвичай робиться з пшеничного борошна, води, солі та олії. Потім тісто розкатують на тонкі круглі шматочки, на які кладуть начинку.
+<br><br>
+Для начинки хінкалі з бараниною використовують нарізані на дрібні шматочки кусочки м'яса з баранячих стегон або плечей. Це м'ясо маринується в спеціях, включаючи кімін, коріандр, паприку, часник і сіль, для надання насиченого смаку. Нарізані шматочки м'яса розміщуються в центрі круглого шматочка тіста, яке потім складають в характерну форму згорнутих країв.
+<br><br>
+Хінкалі з бараниною готуються у великому каструлі з киплячою водою. Коли вода закипить, хінкалі опускаються в каструлю і варяться до готовності, поки тісто стає м'яким і начинка готова. Після цього хінкалі достають з води, проціджують і подають на стіл.
+<br><br>
+Хінкалі з бараниною зазвичай подаються гарячими на глибоких тарілках. Їх можна полити вершковим соусом або супроводити гострим соусом, як-от ткемалі або аджика. Ця страва знаменита своїм соковитим м'ясом, ароматними спеціями та тонким тістом, яке робить кожне ковток смачним та задоволеним.
+</h3>
+</div>
+
+<div class="top-right">
+    {% if logged_in %}
+        <a href="{{ url_for('prof') }}" id="perehid">перейти в свій профіль</a>
+    {% else %}
+        <button id="open-modal-btn">Увійти або зареєструватись</button>
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div class="form-selector">
+                    <button id="register-btn">Реєстрація</button>
+                    <button id="login-btn">Вхід</button>
+                </div>
+                <form id="register-form" style="display:block;" method="POST" action="{{ url_for('register') }}">
+                    <h2>Реєстрація</h2>
+                    <label for="name">Ім'я:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password" name="password" required>
+                    <br>
+                    <button type="submit">Зареєструватись</button>
+                </form>
+                <form id="login-form" style="display:none;" method="POST" action="{{ url_for('login') }}">
+                    <h2>Вхід</h2>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <label for="password">Пароль:</label>
+                    <input type="password" id="password" name="password" required>
+                    <br>
+                    <button type="submit">Увійти</button>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+</div>
+<script type="text/javascript">
+
+const openModalBtn = document.getElementById('open-modal-btn');
+const modal = document.getElementById('modal');
+const closeModal = document.getElementsByClassName('close')[0];
+const registerBtn = document.getElementById('register-btn');
+const loginBtn = document.getElementById('login-btn');
+const registerForm = document.getElementById('register-form');
+const loginForm = document.getElementById('login-form');
+
+// Відкрити модальне вікно
+openModalBtn.onclick = function() {
+  modal.style.display = 'block';
+  registerForm.style.display = 'none';
+  loginForm.style.display = 'none';
+}
+
+// Закрити модальне вікно при натисканні на "х"
+closeModal.onclick = function() {
+  modal.style.display = 'none';
+}
+
+// Закрити модальне вікно при натисканні за межами модального вікна
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = 'none';
+  }
+}
+
+// Показати форму реєстрації при натисканні на кнопку "Реєстрація"
+registerBtn.onclick = function() {
+  registerForm.style.display = 'block';
+  loginForm.style.display = 'none';
+}
+
+// Показати форму входу при натисканні на кнопку "Вхід"
+loginBtn.onclick = function() {
+  loginForm.style.display = 'block';
+  registerForm.style.display = 'none';
+}
+
+
+
+
+
+
+function addToFavorites() {
+  var number = 10; // Замініть це на ваше число, яке потрібно передати
+  var favoriteBtn = document.getElementById("favoriteBtn");
+
+  // Виклик Ajax запиту для передачі числа на Flask додаток
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "/process_number", true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+      var response = JSON.parse(xhr.responseText);
+      var isFavorite = response.is_favorite;
+
+      if (isFavorite) {
+        favoriteBtn.classList.add("already-favorite");
+        favoriteBtn.classList.remove("favorite");
+        favoriteBtn.textContent = "Улюблене";
+      } else {
+        favoriteBtn.classList.add("favorite");
+        favoriteBtn.classList.remove("already-favorite");
+        favoriteBtn.textContent = "Додати до улюблених";
+      }
+    }
+  };
+  xhr.send(JSON.stringify({ number: number }));
+}
+
+// Визначте обробник події для кнопки "Улюблене" для виклику функції addToFavorites()
+var favoriteBtn = document.getElementById("favoriteBtn");
+favoriteBtn.addEventListener("click", addToFavorites);
+
+
+</script>
+		<img src="{{ url_for('static', filename='main_pic/picture_start.png')}}" class="bg-image">
+        <div class="container1">
+            <div id="contact">
+                <h2>Контактна інформіція</h2>
+                <p>Телефон: +380(095)-092-18-65</p>
+                <p>Email: sasha281012@gmail.com</p>
+            </div>
+        </div>
+	</body>
+</html>

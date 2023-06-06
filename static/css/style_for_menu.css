@@ -1,0 +1,298 @@
+
+h1 {
+    color:#ff8562;
+}
+
+/*---------------------------------------*/
+
+.center{
+ text-align: center;
+}
+#cart{
+transform: translate(950px,00px);
+}
+
+/*---------------------------------------*/
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: transparent;
+  color: "#1b4940";
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+  outline: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  color: #f22532;
+  background-color: #1b4940;
+}
+
+
+/*---------------------------------------*/
+#main{
+     border-radius: 30px;
+     margin-left: auto;
+     margin-right: auto;
+     background-image: url("/static/main_pic/fon1.png");
+     background-size: no-repeat;
+     background-position: center;
+     background-size: cover;
+     height: 115px;
+     width: 790px;
+     }
+#word{
+ margin: 0px 50px ;
+ display: flex;
+  justify-content: space-between;
+
+ }
+/*---------------------------------------*/
+a {
+    transform:translate(10px,0);
+    color:#ff8562;
+    font-size:24px;
+}
+
+
+.bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: auto;
+}
+
+
+/*---------------------------------------*/
+.container {
+margin-bottom: 10px;
+ transform: translate(0,30px);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+
+.tile {
+  width: 300px;
+  height: 300px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s;
+}
+
+.tile:hover img {
+  transform: scale(1.2);
+}
+
+.tile p {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  margin: 0;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 18px;
+  text-align: center;
+}
+/*---------------------------------------*/
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+label, input {
+  margin-bottom: 10px;
+}
+
+.top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+/*---------------------------------------*/
+button {
+  background-color: #1b4940;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1b4241;
+}
+
+/*---------------------------------------*/
+#contact {
+    color:#fff;
+    background-color: #1b4940;
+    padding: 20px;
+    text-align: center;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+}
+#contact {
+transform: translate(0,240px);
+
+}
+
+/*---------------------------------------*/
+#perehid{
+  display: inline-block;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 10px;
+  background-color:  #1b4940;;
+  color: "#1b4940";
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+  outline: none;
+  cursor: pointer;
+    transform:translate(-0px,0);
+}
+
+#perehid:hover {
+  color: #f22532;
+    background-color: #1b4940;
+}
+
+
+/*---------------------------------------*/
+
+#element1,
+#element2,
+#element3,
+#element4,
+#element5{
+    color: #ddbc93;
+  z-index: 1;
+  display: none;
+   margin-bottom: 20px; /* Відступ між елементами */
+
+}
+/*---------------------------------------*/
+.chose1{
+color: #ddbc93;
+}
+#chose1{
+    color: #ddbc93;
+    text-align: center;
+    transform: translate(0,190px);
+}
+/*---------------------------------------*/
+
+
+/* Стилі модального вікна */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  max-width: 500px;
+  position: relative;
+}
+
+/* Кнопка закриття модального вікна */
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 30px;
+  font-weight: bold;
+  color: #aaa;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Стилі форм реєстрації та входу */
+form {
+  display: none;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Показ форми реєстрації */
+#login-form {
+  display: block;
+}
+
+#register-form {
+  display: block;
+}
+
+
+/* Стилі для вирівнювання по центру */
+.modal-content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.comment {
+    width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5px;
+  margin-bottom: 5px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f2f2f2;
+}
+
+.comment strong {
+  color: #333;
+}
+
+.comment p {
+  margin: 0;
+}
