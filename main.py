@@ -7,12 +7,18 @@ import requests
 
 app = Flask(__name__, template_folder='html')
 
+database="html_DB"
+user="postgres"
+password="111"
+host="localhost"
+port="5432"
+
 
 app.secret_key = 'your-secret-key'
 
 def save_comment(comment, name):
-    conn = psycopg2.connect(database="html_DB", user="postgres", password="111", host="localhost",
-                            port="5432")
+    conn = psycopg2.connect(database=database, user=user, password=password, host=host,
+                            port=port)
     cur = conn.cursor()
     cur.execute(f"INSERT INTO comments (id, name,comments) VALUES ('{uuid.uuid4()}','{name}','{comment}')")
     conn.commit()
@@ -21,8 +27,8 @@ def save_comment(comment, name):
 
 def load_comments_all():
     comments = []
-    conn = psycopg2.connect(database="html_DB", user="postgres", password="111", host="localhost",
-                            port="5432")
+    conn = psycopg2.connect(database=database, user=user, password=password, host=host,
+                            port=port)
     cur = conn.cursor()
     cur.execute(f"select name,comments from comments")
     results = cur.fetchall()
@@ -35,8 +41,8 @@ def load_comments_all():
 
 def load_comments_by_name(name_filter):
     comments = []
-    conn = psycopg2.connect(database="html_DB", user="postgres", password="111", host="localhost",
-                            port="5432")
+    conn = psycopg2.connect(database=database, user=user, password=password, host=host,
+                            port=port)
     cur = conn.cursor()
     cur.execute(f"select name,comments from comments")
     results = cur.fetchall()
@@ -50,8 +56,8 @@ def load_comments_by_name(name_filter):
     return comments
 
 def chek(email,number):
-    conn = psycopg2.connect(database="html_DB", user="postgres", password="111", host="localhost",
-                            port="5432")
+    conn = psycopg2.connect(database=database, user=user, password=password, host=host,
+                            port=port)
     cur = conn.cursor()
 
     cur.execute(f"""SELECT "like" FROM data WHERE email = '{email}'""")
@@ -67,7 +73,8 @@ def choose_favorite(email):
     alls={1:"adsharski", 2:"imperetunsky",3:"kudbari",4:"harcho",5:"chihrtma",6:"gruzinskii_salat",7:"megrelskii_salat",8:"atsetsil",9:"hink_sir",10:"hink_bar",11:"pear_in_vine",12:"matsoni", 13:"tukva",14:"chashushuli",15:"chacha",16:"tarhun"}
     alls_for_views = {1: "хачапурі по аджарськи",2:"Імеритинський хачапурі",3:"Кубдарі",4:"Харчо",5:"Чихіртма",6:"Грузинський салат",7:"Мегрельський салат",8:"Ацецилі",9:"Хінкалії з сиром",10:"Хінкалії з бараниною",11:"Груші в червоному вині",12:"Матсоні",13:"Грузинський десерт з тиквою",14:"Чашушули",15:"Чача",16:"Тархун"}
 
-    conn = psycopg2.connect(database="html_DB", user="postgres", password="111", host="localhost", port="5432")
+    conn = psycopg2.connect(database=database, user=user, password=password, host=host,
+                            port=port)
     cur = conn.cursor()
     cur.execute(f"""SELECT "like" FROM data WHERE email = '{email}'""")
     results = cur.fetchone()[0]
@@ -306,8 +313,8 @@ def register():
     name = request.form.get('name')
     email = request.form.get('email')
     password = request.form.get('password')
-    conn = psycopg2.connect(database="html_DB", user="postgres", password="111", host="localhost",
-                            port="5432")
+    conn = psycopg2.connect(database=database, user=user, password=password, host=host,
+                            port=port)
     cur = conn.cursor()
 
     cur.execute(f"SELECT EXISTS(SELECT 1 FROM data WHERE email = '{email}')")
@@ -335,8 +342,8 @@ def login():
     email = request.form.get('email')
     password = request.form.get('password')
 
-    conn = psycopg2.connect(database="html_DB", user="postgres", password="111", host="localhost",
-                            port="5432")
+    conn = psycopg2.connect(database=database, user=user, password=password, host=host,
+                            port=port)
     cur = conn.cursor()
 
     cur.execute(f"SELECT EXISTS(SELECT 1 FROM data WHERE email = '{email}')")
@@ -365,8 +372,8 @@ def logout():
 
 @app.route('/submit_comment', methods=['POST'])
 def add_comment():
-    conn = psycopg2.connect(database="html_DB", user="postgres", password="111", host="localhost",
-                            port="5432")
+    conn = psycopg2.connect(database=database, user=user, password=password, host=host,
+                            port=port)
     cur = conn.cursor()
     comments= request.form.get('comment')
     name = session.get('name')
@@ -381,8 +388,8 @@ def add_comment():
 
 @app.route('/submit_comment_for_deserts', methods=['POST'])
 def add_comment_for_deserts():
-    conn = psycopg2.connect(database="html_DB", user="postgres", password="111", host="localhost",
-                            port="5432")
+    conn = psycopg2.connect(database=database, user=user, password=password, host=host,
+                            port=port)
     cur = conn.cursor()
     comments= request.form.get('comment')
     name = session.get('name')
@@ -414,8 +421,8 @@ def process_number():
     email = session.get('email')
 
 
-    conn = psycopg2.connect(database="html_DB", user="postgres", password="111", host="localhost",
-                            port="5432")
+    conn = psycopg2.connect(database=database, user=user, password=password, host=host,
+                            port=port)
     cur = conn.cursor()
     cur.execute(f"""SELECT "like" FROM data WHERE email = '{email}'""")
 
